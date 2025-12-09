@@ -1,0 +1,274 @@
+:root {
+  --inquimed-green: #065f52;
+  --inquimed-pink: #e6007e;
+  --inquimed-light: #f6f6f6;
+}
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f3f4f6;
+  color: #0f172a;
+}
+
+/* Secciones claras */
+.section-light {
+  background-color: #f9fafb;
+}
+
+/* NAVBAR */
+.bg-dark-quim {
+  background: #022b26;
+}
+
+/* HERO */
+.bg-hero {
+  background: radial-gradient(circle at top left, #0f766e 0, #022b26 35%, #020617 100%);
+  color: #f9fafb;
+}
+
+.hero-badge {
+  background: rgba(15, 118, 110, 0.15) !important;
+  color: #e0f2f1 !important;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+.hero-lead {
+  max-width: 42rem;
+}
+
+/* Card resumen INQUIMED */
+.card-hero {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(6, 95, 82, 0.12);
+  backdrop-filter: blur(12px);
+  color: #e7fffb;
+  border-radius: 1.25rem;
+}
+
+.card-hero .card-title {
+  color: #ffffff;
+}
+
+.hero-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--inquimed-pink);
+  box-shadow: 0 0 0 6px rgba(230, 0, 126, 0.25);
+}
+
+.hero-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.hero-bullet {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 999px;
+  margin-top: 0.45rem;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.hero-footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.15);
+  color: rgba(226, 232, 240, 0.95);
+}
+
+/* BOTONES */
+.btn-quim {
+  background: var(--inquimed-green);
+  border-color: var(--inquimed-green);
+}
+.btn-quim:hover {
+  background: #04796a;
+  border-color: #04796a;
+}
+
+/* TARJETAS DE PRODUCTOS */
+.product-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.18);
+}
+
+.product-pill {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(230, 0, 126, 0.09);
+  color: var(--inquimed-pink);
+}
+
+.product-formula {
+  font-family: "Consolas", "Fira Code", monospace;
+  font-size: 0.85rem;
+  color: var(--inquimed-green);
+}
+
+.product-img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 0.8rem 0.8rem 0 0;
+  display: block;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Tarjetas de servicios */
+.service-card {
+  border-radius: 1rem;
+}
+
+/* AVISO NOSCRIPT */
+.noscript-warning {
+  background: #fff3cd;
+  color: #664d03;
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* SKIP LINK ACCESIBLE */
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #ffffff;
+  color: #022b26;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0 1px #022b26;
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+  z-index: 2000;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* VISUALLY HIDDEN (para lectores de pantalla) */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+/* FOCUS STYLES PARA TECLADO */
+a:focus,
+button:focus,
+input:focus,
+select:focus {
+  outline: 3px solid rgba(4, 121, 106, 0.3);
+  outline-offset: 2px;
+}
+
+/* ICONOS REDES */
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 18px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+.social-icon:hover {
+  background: var(--inquimed-green);
+  transform: translateY(-3px);
+  color: #ffffff;
+}
+
+/* BOTÓN VOLVER ARRIBA */
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  background: rgba(6, 95, 82, 0.95);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.4);
+  z-index: 1000;
+}
+.back-to-top:hover {
+  background: #04796a;
+}
+
+/* CHIPS DE FILTRO */
+.chip-filter {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #111827;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.chip-filter:hover {
+  background: #d1d5db;
+}
+.chip-filter.active {
+  background: var(--inquimed-green);
+  color: white;
+}
+
+/* Peligro: colores */
+.hazard-Corrosivo {
+  color: #b91c1c !important;
+}
+.hazard-Inflamable {
+  color: #ea580c !important;
+}
+.hazard-Tóxico {
+  color: #86198f !important;
+}
+.hazard-Irritante {
+  color: #ca8a04 !important;
+}
+.hazard-No {
+  color: #15803d !important;
+}
+
+/* Espaciado general */
+main {
+  min-height: 60vh;
+}

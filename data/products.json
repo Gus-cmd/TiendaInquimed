@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": "hcl-37",
+      "name": "Ácido clorhídrico 37%",
+      "formula": "HCl",
+      "category": "Reactivo",
+        "grade": "Analítico",
+      "hazard": "Corrosivo",
+      "presentation": "1 L",
+      "description": "Solución concentrada para uso en laboratorio.",
+        "tags": ["reactivo", "ácido", "minería"],
+        "image": "assets/logo-inquimed.png"
+    },
+    {
+      "id": "etanol-absoluto",
+      "name": "Etanol absoluto",
+      "formula": "C2H6O",
+      "category": "Solvente",
+        "grade": "HPLC",
+      "hazard": "Inflamable",
+      "presentation": "2.5 L",
+      "description": "Solvente orgánico de alta pureza.",
+        "tags": ["solvente", "orgánico"],
+        "image": "assets/logo-inquimed.png"
+    }
+  ]
+}
