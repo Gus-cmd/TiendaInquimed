@@ -1,0 +1,46 @@
+backend:
+  name: git-gateway
+  branch: main   # o la rama que usar tu repo, a veces "master"
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: "es"
+
+collections:
+  - name: "catalogo"
+    label: "Catálogo de productos"
+    label_singular: "Producto"
+    files:
+      - name: "productos"
+        label: "Productos"
+        file: "data/products.json"
+        description: "Listado de productos químicos INQUIMED"
+        fields:
+          - label: "Productos"
+            name: "products"
+            widget: "list"
+            summary: "{{fields.name}} ({{fields.category}})"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Nombre", name: "name", widget: "string" }
+              - { label: "Fórmula", name: "formula", widget: "string", required: false }
+              - { label: "Categoría", name: "category", widget: "select", options: ["Reactivo", "Solvente", "Material", "Equipo", "Limpieza"] }
+              - { label: "Grado", name: "grade", widget: "string", required: false }
+              - { label: "Peligro", name: "hazard", widget: "string", required: false }
+              - { label: "Presentación", name: "presentation", widget: "string", required: false }
+              - { label: "Descripción", name: "description", widget: "text", required: false }
+              - label: "Etiquetas (tags)"
+                name: "tags"
+                widget: "list"
+                field: { label: "Etiqueta", name: "tag", widget: "string" }
+              - label: "Pictogramas GHS"
+                name: "ghsCodes"
+                widget: "list"
+                field: { label: "Código", name: "code", widget: "string" }
+              - label: "Imagen"
+                name: "image"
+                widget: "image"
+                allow_multiple: false
+                required: false
+                default: "assets/logo-inquimed.png"
