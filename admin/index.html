@@ -2,15 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Panel de administración – INQUIMED</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-   <!-- Favicon -->
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
   <div id="nc-root"></div>
 
+  <!-- Netlify Identity Widget (NECESARIO para aceptar invitaciones) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <!-- Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^2/dist/netlify-cms.js"></script>
+
+  <script>
+    // Procesa tokens de invitación, confirmación o recuperación
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
