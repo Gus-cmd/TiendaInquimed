@@ -21,50 +21,37 @@ let filteredProducts = [];
 let currentPage = 1;
 
 // ======================================================
-// 1. Cargar productos del ADMIN (localStorage)
-// ======================================================
-function loadExtraProducts() {
-  try {
-    const raw = localStorage.getItem("inquimed-extra-products");
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (err) {
-    console.error("Error leyendo productos extra del admin:", err);
-    return [];
-  }
-}
-
-// ======================================================
-// 2. Cargar productos desde products.json + admin
+// 1. Cargar productos desde products.json
+//    (Netlify CMS actualiza este archivo)
 // ======================================================
 async function loadProducts() {
   try {
-    const res = await fetch("data/products.json");
+    const res = await fetch("data/products.json", { cache: "no-store" });
     const data = await res.json();
-    const baseProducts = data.products || [];
-    const extraProducts = loadExtraProducts();
-
-    // Combinar catálogo base + productos admin
-    allProducts = baseProducts.concat(extraProducts);
-
+    allProducts = Array.isArray(data.products) ? data.products : [];
     filteredProducts = [...allProducts];
     renderCurrentPage();
   } catch (err) {
     console.error("Error cargando productos:", err);
+    if (grid) {
+      grid.innerHTML =
+        '<p class="text-danger small">No se pudo cargar el catálogo. Intente nuevamente más tarde.</p>';
+    }
   }
 }
 
 // ======================================================
-// 3. Aplicar filtros
+// 2. Aplicar filtros
 // ======================================================
 function applyFilters() {
+  if (!allProducts.length) return;
+
   filteredProducts = productFilter.filter(allProducts, {
-    search: searchInput.value,
-    category: filterCategory.value,
-    hazard: filterHazard.value,
-    grade: filterGrade.value,
-    sort: filterSort.value,
+    search:   searchInput ? searchInput.value : "",
+    category: filterCategory ? filterCategory.value : "",
+    hazard:   filterHazard ? filterHazard.value : "",
+    grade:    filterGrade ? filterGrade.value : "",
+    sort:     filterSort ? filterSort.value : "name-asc",
   });
 
   currentPage = 1;
@@ -72,7 +59,7 @@ function applyFilters() {
 }
 
 // ======================================================
-// 4. Chips de categoría (filtros rápidos)
+// 3. Chips de categoría (filtros rápidos)
 // ======================================================
 chips.forEach((chip) => {
   chip.addEventListener("click", () => {
@@ -81,35 +68,42 @@ chips.forEach((chip) => {
 
     const cat = chip.dataset.category || "";
 
-    filterCategory.value = cat;
+    if (filterCategory) {
+      filterCategory.value = cat;
+    }
     applyFilters();
   });
 });
 
 // ======================================================
-// 5. Limpiar filtros
+// 4. Limpiar filtros
 // ======================================================
-clearFiltersBtn.addEventListener("click", () => {
-  searchInput.value = "";
-  filterCategory.value = "";
-  filterHazard.value = "";
-  filterGrade.value = "";
-  filterSort.value = "name-asc";
+if (clearFiltersBtn) {
+  clearFiltersBtn.addEventListener("click", () => {
+    if (searchInput) searchInput.value = "";
+    if (filterCategory) filterCategory.value = "";
+    if (filterHazard) filterHazard.value = "";
+    if (filterGrade) filterGrade.value = "";
+    if (filterSort) filterSort.value = "name-asc";
 
-  chips.forEach((chip) => chip.classList.remove("active"));
-  chips[0].classList.add("active"); // “Todos”
+    chips.forEach((chip) => chip.classList.remove("active"));
+    if (chips[0]) chips[0].classList.add("active"); // “Todos”
 
-  applyFilters();
-});
+    applyFilters();
+  });
+}
 
 // ======================================================
-// 6. Renderizar tarjetas de productos
+// 5. Renderizar tarjetas de productos
 // ======================================================
 function renderProducts(list) {
+  if (!grid) return;
   grid.innerHTML = "";
 
   // Contador de resultados
-  resultsCount.textContent = `${list.length} producto(s) encontrado(s)`;
+  if (resultsCount) {
+    resultsCount.textContent = `${list.length} producto(s) encontrado(s)`;
+  }
 
   if (!list.length) {
     grid.innerHTML = `<p class="text-muted small">No se encontraron productos.</p>`;
@@ -117,31 +111,39 @@ function renderProducts(list) {
   }
 
   list.forEach((p) => {
-    const hazardClass = "hazard-" + (p.hazard || "").split(" ")[0];
+    const name = p.name || "Producto INQUIMED";
+    const category = p.category || "Sin categoría";
+    const presentation = p.presentation || "—";
+    const hazardText = p.hazard || "—";
+    const hazardClass = "hazard-" + hazardText.split(" ")[0];
 
     const col = document.createElement("div");
     col.className = "col-12 col-sm-6 col-lg-4";
 
     col.innerHTML = `
-      <a href="producto.html?id=${encodeURIComponent(p.id)}" class="text-decoration-none text-dark">
+      <a href="producto.html?id=${encodeURIComponent(p.id)}"
+         class="text-decoration-none text-dark">
         <div class="card product-card h-100">
           <img src="${p.image || "assets/product-placeholder.png"}"
                class="product-img"
-               alt="${p.name}">
+               alt="${name}">
 
           <div class="card-body">
             <div class="d-flex justify-content-between mb-2">
-              <h5 class="card-title mb-0">${p.name}</h5>
-              <span class="product-pill">${p.category}</span>
+              <h5 class="card-title mb-0">${name}</h5>
+              <span class="product-pill">${category}</span>
             </div>
 
             ${p.formula ? `<p class="product-formula mb-1">${p.formula}</p>` : ""}
 
-            <p class="small text-muted mb-2">${p.description || ""}</p>
+            <p class="small text-muted mb-2">
+              ${p.description || ""}
+            </p>
 
             <p class="small mb-0">
-              <strong>Presentación:</strong> ${p.presentation || "—"} <br>
-              <strong>Peligro:</strong> <span class="${hazardClass}">${p.hazard || "—"}</span>
+              <strong>Presentación:</strong> ${presentation} <br>
+              <strong>Peligro:</strong>
+              <span class="${hazardClass}">${hazardText}</span>
             </p>
           </div>
         </div>
@@ -153,9 +155,10 @@ function renderProducts(list) {
 }
 
 // ======================================================
-// 7. Renderizar paginación
+// 6. Renderizar paginación
 // ======================================================
 function renderPagination(totalPages) {
+  if (!paginationContainer) return;
   paginationContainer.innerHTML = "";
 
   if (totalPages <= 1) return;
@@ -201,11 +204,11 @@ function renderPagination(totalPages) {
 }
 
 // ======================================================
-// 8. Render actual (página actual del catálogo)
+// 7. Render actual (página actual del catálogo)
 // ======================================================
 function renderCurrentPage() {
   const total = filteredProducts.length;
-  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
 
   const start = (currentPage - 1) * PAGE_SIZE;
   const pageItems = filteredProducts.slice(start, start + PAGE_SIZE);
@@ -215,15 +218,15 @@ function renderCurrentPage() {
 }
 
 // ======================================================
-// 9. Eventos principales
+// 8. Eventos principales
 // ======================================================
-searchInput.addEventListener("input", applyFilters);
-filterCategory.addEventListener("change", applyFilters);
-filterHazard.addEventListener("change", applyFilters);
-filterGrade.addEventListener("change", applyFilters);
-filterSort.addEventListener("change", applyFilters);
+if (searchInput) searchInput.addEventListener("input", applyFilters);
+if (filterCategory) filterCategory.addEventListener("change", applyFilters);
+if (filterHazard) filterHazard.addEventListener("change", applyFilters);
+if (filterGrade) filterGrade.addEventListener("change", applyFilters);
+if (filterSort) filterSort.addEventListener("change", applyFilters);
 
 // ======================================================
-// 10. Inicializar catálogo
+// 9. Inicializar catálogo
 // ======================================================
 loadProducts();

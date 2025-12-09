@@ -27,8 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const relatedGrid = document.getElementById("relatedProductsGrid");
 
   if (!productId) {
-    descEl.textContent =
-      "No se ha especificado un producto. Regrese al catálogo para seleccionar uno.";
+    if (descEl) {
+      descEl.textContent =
+        "No se ha especificado un producto. Regrese al catálogo para seleccionar uno.";
+    }
     return;
   }
 
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const icon = document.createElement("div");
       icon.className = "ghs-icon";
 
-      const num = code.replace("GHS", "");
+      const num = String(code).replace("GHS", "");
 
       icon.innerHTML = `
         <div class="ghs-diamond">
@@ -121,6 +123,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Normaliza tags: acepta ["tag"] o [{ tag: "tag" }]
+  function normalizeTags(raw) {
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .map((t) => (typeof t === "string" ? t : t && t.tag ? t.tag : ""))
+      .filter(Boolean);
+  }
+
+  // Normaliza GHS: acepta ["GHS05"] o [{ code: "GHS05" }]
+  function normalizeGhs(raw) {
+    if (!Array.isArray(raw)) return [];
+    return raw
+      .map((c) => (typeof c === "string" ? c : c && c.code ? c.code : ""))
+      .filter(Boolean);
+  }
+
   fetch("data/products.json")
     .then((res) => res.json())
     .then((data) => {
@@ -128,9 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const product = products.find((p) => p.id === productId);
 
       if (!product) {
-        headingEl.textContent = "Producto no encontrado";
-        descEl.textContent =
-          "El producto solicitado no se encuentra en el catálogo. Es posible que haya sido actualizado o eliminado.";
+        if (headingEl) headingEl.textContent = "Producto no encontrado";
+        if (descEl) {
+          descEl.textContent =
+            "El producto solicitado no se encuentra en el catálogo. Es posible que haya sido actualizado o eliminado.";
+        }
         return;
       }
 
@@ -140,28 +160,44 @@ document.addEventListener("DOMContentLoaded", () => {
         breadcrumbCurrentEl.textContent = product.name || "Producto";
       }
 
-      headingEl.textContent = product.name || "Producto INQUIMED";
-      formulaHeroEl.textContent = product.formula || "";
+      if (headingEl) {
+        headingEl.textContent = product.name || "Producto INQUIMED";
+      }
+      if (formulaHeroEl) {
+        formulaHeroEl.textContent = product.formula || "";
+      }
 
       if (nameLeftEl) {
         nameLeftEl.textContent = product.name || "Producto INQUIMED";
       }
 
-      categoryBadgeEl.textContent = product.category || "Sin categoría";
-      gradeBadgeEl.textContent = product.grade || "Sin grado";
+      if (categoryBadgeEl) {
+        categoryBadgeEl.textContent = product.category || "Sin categoría";
+      }
+      if (gradeBadgeEl) {
+        gradeBadgeEl.textContent = product.grade || "Sin grado";
+      }
 
       const hazardText = product.hazard || "Sin clasificación";
-      hazardBadgeEl.textContent = hazardText;
+      if (hazardBadgeEl) {
+        hazardBadgeEl.textContent = hazardText;
+      }
 
-      imgEl.src = product.image || "assets/logo-inquimed.png";
-      imgEl.alt = product.name || "Producto INQUIMED";
+      if (imgEl) {
+        imgEl.src = product.image || "assets/logo-inquimed.png";
+        imgEl.alt = product.name || "Producto INQUIMED";
+      }
 
-      descEl.textContent =
-        product.description ||
-        "Producto químico para uso en laboratorio e industria.";
+      if (descEl) {
+        descEl.textContent =
+          product.description ||
+          "Producto químico para uso en laboratorio e industria.";
+      }
 
-      presEl.textContent =
-        product.presentation || "Consultar presentaciones disponibles";
+      if (presEl) {
+        presEl.textContent =
+          product.presentation || "Consultar presentaciones disponibles";
+      }
 
       if (presLeftEl) {
         const firstPres = product.presentation
@@ -170,27 +206,31 @@ document.addEventListener("DOMContentLoaded", () => {
         presLeftEl.textContent = firstPres;
       }
 
-      idEl.textContent = product.id || "—";
-      categorySmallEl.textContent = product.category || "—";
-      gradeSmallEl.textContent = product.grade || "—";
-      presSmallEl.textContent = product.presentation || "—";
-      hazardSmallEl.textContent = hazardText;
+      if (idEl) idEl.textContent = product.id || "—";
+      if (categorySmallEl) categorySmallEl.textContent = product.category || "—";
+      if (gradeSmallEl) gradeSmallEl.textContent = product.grade || "—";
+      if (presSmallEl) presSmallEl.textContent = product.presentation || "—";
+      if (hazardSmallEl) hazardSmallEl.textContent = hazardText;
 
-      tagsEl.innerHTML = "";
-      const tags = product.tags || [];
-      if (!tags.length) {
-        tagsEl.innerHTML =
-          '<span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis small">Sin etiquetas</span>';
-      } else {
-        tags.forEach((tag) => {
-          const span = document.createElement("span");
-          span.className = "badge rounded-pill product-tag-pill";
-          span.textContent = tag;
-          tagsEl.appendChild(span);
-        });
+      // Etiquetas
+      if (tagsEl) {
+        tagsEl.innerHTML = "";
+        const tags = normalizeTags(product.tags || []);
+        if (!tags.length) {
+          tagsEl.innerHTML =
+            '<span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis small">Sin etiquetas</span>';
+        } else {
+          tags.forEach((tag) => {
+            const span = document.createElement("span");
+            span.className = "badge rounded-pill product-tag-pill";
+            span.textContent = tag;
+            tagsEl.appendChild(span);
+          });
+        }
       }
 
-      const ghsCodes = product.ghsCodes || product.ghs || [];
+      // Pictogramas GHS (normalizados)
+      const ghsCodes = normalizeGhs(product.ghsCodes || product.ghs || []);
       renderGhsIcons(ghsCodes);
 
       // Productos relacionados
@@ -198,7 +238,9 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch((err) => {
       console.error("Error cargando producto:", err);
-      descEl.textContent =
-        "Ocurrió un problema al cargar la información del producto. Intente nuevamente más tarde.";
+      if (descEl) {
+        descEl.textContent =
+          "Ocurrió un problema al cargar la información del producto. Intente nuevamente más tarde.";
+      }
     });
 });

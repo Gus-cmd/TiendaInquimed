@@ -61,14 +61,21 @@ collections:
                   widget: "text",
                   required: false,
                 }
+
+              # 👇 Aquí cambiamos: lista simple de strings
               - label: "Etiquetas (tags)"
                 name: "tags"
                 widget: "list"
-                field: { label: "Etiqueta", name: "tag", widget: "string" }
+                required: false
+                default: []
+
+              # 👇 También lista simple de strings
               - label: "Pictogramas GHS"
                 name: "ghsCodes"
                 widget: "list"
-                field: { label: "Código", name: "code", widget: "string" }
+                required: false
+                default: []
+
               - label: "Imagen"
                 name: "image"
                 widget: "image"
