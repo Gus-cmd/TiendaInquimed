@@ -4,151 +4,312 @@
   <meta charset="UTF-8" />
   <title>Producto – INQUIMED</title>
 
+  <meta name="description" content="Ficha de producto químico de INQUIMED: información técnica, presentación y seguridad." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#022b26" />
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css" />
-
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark-quim sticky-top">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="index.html#inicio">
-        <img src="assets/logo-inquimed.png" alt="Logo de INQUIMED" height="40" class="me-2">
-        <span class="fw-bold">INQUIMED</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="index.html#catalogo">Productos</a></li>
-          <li class="nav-item"><a class="nav-link" href="servicios.html">Servicios</a></li>
-          <li class="nav-item"><a class="nav-link" href="legal.html">Legal</a></li>
-        </ul>
-      </div>
+  <noscript>
+    <div class="noscript-warning">
+      Esta página funciona mejor con JavaScript activado.
     </div>
-  </nav>
+  </noscript>
+
+  <a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-quim sticky-top" aria-label="Navegación principal">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html#inicio">
+          <img src="assets/logo-inquimed.png" alt="Logo de INQUIMED" height="40" class="me-2" loading="lazy">
+          <span class="fw-bold">INQUIMED</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false"
+                aria-label="Mostrar menú">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link" href="index.html#catalogo">Productos</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#servicios">Servicios</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#sobre">Sobre INQUIMED</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+          </ul>
+
+          <!-- Toggle modo oscuro -->
+          <div class="ms-lg-3 mt-3 mt-lg-0">
+            <button id="themeToggle" class="btn btn-sm btn-outline-light d-flex align-items-center gap-2">
+              <i id="themeIcon" class="fa-solid fa-moon"></i>
+              <span id="themeLabel">Modo oscuro</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 
   <!-- MAIN -->
-  <main class="py-5">
-    <section class="container">
+  <main id="contenido-principal" role="main">
+    <section class="section-light border-top product-page">
+      <div class="container py-4 py-md-5">
 
-      <!-- Migas (breadcrumb) -->
-      <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb small">
-          <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-          <li class="breadcrumb-item"><a href="index.html#catalogo">Catálogo</a></li>
-          <li id="breadcrumb-product" class="breadcrumb-item active"></li>
-        </ol>
-      </nav>
+        <!-- BREADCRUMB -->
+        <nav class="small mb-3 product-breadcrumb" aria-label="Ruta de navegación">
+          <a href="index.html" class="breadcrumb-link">
+            <i class="fa-solid fa-house-chimney me-1"></i> Inicio
+          </a>
+          <span class="text-muted"> / </span>
+          <a href="index.html#catalogo" class="breadcrumb-link">Catálogo</a>
+          <span class="text-muted"> / </span>
+          <span id="breadcrumbCurrent" class="text-muted">Producto</span>
+        </nav>
 
-      <div id="productContainer" class="row g-4">
-        <!-- Aquí se carga el producto -->
+        <!-- LAYOUT PRINCIPAL -->
+        <div class="row g-4 product-layout align-items-stretch" data-aos="fade-up">
+
+          <!-- IZQUIERDA: FICHA RÁPIDA / IMAGEN -->
+          <div class="col-lg-5">
+            <article class="card product-card-left shadow-sm h-100">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3">
+                  <p class="small text-uppercase text-muted mb-1">Vista rápida</p>
+                  <h2 id="productNameLeft" class="product-left-title mb-0">
+                    Producto INQUIMED
+                  </h2>
+                </div>
+
+                <div class="product-left-img-wrapper my-3">
+                  <img
+                    id="productImage"
+                    src="assets/logo-inquimed.png"
+                    alt="Imagen del producto"
+                    class="product-detail-img"
+                  >
+                </div>
+
+                <div class="mt-auto pt-3">
+                  <p class="small text-muted mb-1">Presentación principal</p>
+                  <p id="productPresentationLeft" class="small mb-2">—</p>
+
+                  <div class="d-flex flex-wrap gap-2">
+                    <span id="productCategory" class="badge rounded-pill product-badge-category">
+                      Categoría
+                    </span>
+                    <span id="productGradeBadge" class="badge rounded-pill product-badge-grade">
+                      Grado
+                    </span>
+                    <span id="productHazardBadge" class="badge rounded-pill hazard-badge">
+                      Peligro
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- DERECHA: INFO / TABLA / BOTONES -->
+          <div class="col-lg-7">
+            <article class="card product-card-right shadow-sm h-100">
+              <div class="card-body">
+                <h1 id="productNameHeading" class="product-title mb-1">
+                  Producto INQUIMED
+                </h1>
+                <p id="productFormula" class="product-formula mb-2"></p>
+
+                <p id="productDescription" class="small mb-3">
+                  Cargando información del producto...
+                </p>
+
+                <h2 class="h6 fw-bold mb-2">Ficha técnica</h2>
+                <table class="table table-sm product-meta-table mb-3">
+                  <tbody>
+                    <tr>
+                      <th scope="row">ID</th>
+                      <td id="productId">—</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Categoría</th>
+                      <td id="productCategorySmall">—</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Grado</th>
+                      <td id="productGradeSmall">—</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Presentación</th>
+                      <td id="productPresentationSmall">—</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Peligro</th>
+                      <td id="productHazardSmall">—</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h3 class="h6 fw-bold mb-2">Presentación</h3>
+                <p id="productPresentation" class="small mb-3">—</p>
+
+                <h3 class="h6 fw-bold mb-2">Pictogramas GHS</h3>
+                <div id="productGhs" class="d-flex flex-wrap gap-3 mb-3"></div>
+
+                <h3 class="h6 fw-bold mb-2">Etiquetas</h3>
+                <div id="productTags" class="d-flex flex-wrap gap-1 small mb-3"></div>
+
+                <hr class="my-3">
+
+                <p class="product-warning small mb-3">
+                  <i class="fa-solid fa-triangle-exclamation me-1"></i>
+                  La información técnica es referencial. Verifique siempre la ficha de seguridad (MSDS)
+                  y las normas de seguridad internas de su organización.
+                </p>
+
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="index.html#catalogo" class="btn btn-outline-secondary btn-sm">
+                    ← Volver al catálogo
+                  </a>
+                  <a id="quoteButton" href="#" class="btn btn-quim btn-sm">
+                    <i class="fa-solid fa-file-signature me-1"></i> Solicitar cotización
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- PRODUCTOS RELACIONADOS -->
+        <section class="related-products mt-5" aria-label="Productos relacionados">
+          <div class="d-flex flex-column flex-md-row align-items-md-center mb-3">
+            <h2 class="h6 fw-bold mb-1 mb-md-0">Productos relacionados</h2>
+            <p class="small text-muted ms-md-3 mb-0">
+              Otros productos del catálogo que podrían interesarte.
+            </p>
+          </div>
+          <div id="relatedProductsGrid" class="row g-3">
+            <!-- Rellenado por JS -->
+          </div>
+        </section>
+
       </div>
-
     </section>
   </main>
 
   <!-- FOOTER -->
-  <footer class="py-5 bg-dark-quim text-white mt-auto">
-    <div class="container">
-      <div class="row gy-4">
-        <div class="col-md-4">
-          <h5 class="fw-bold">Contáctanos</h5>
-          <p class="small mb-2">Consultas y cotizaciones:</p>
-          <p class="small"><strong>correo@inquimed.com</strong></p>
+  <footer id="contacto" class="py-5 bg-dark-quim text-white mt-auto">
+        <div class="col-md-4 text-md-end">
+            <h3 class="h6 fw-bold mb-2">INQUIMED</h3>
+            <p class="small mb-1">
+            <a href="legal.html" class="footer-link">Legal</a>
+            </p>
+            <p class="small mb-0">© 2025 Soluciones Químicas Integrales</p>
         </div>
-
-        <div class="col-md-4">
-          <h6 class="fw-bold">Redes sociales</h6>
-          <div class="d-flex gap-3">
-            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
-            <a href="https://wa.me/51900000000" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+    <div class="container">
+      <div class="row gy-4 align-items-start">
+        <div class="col-md-4" data-aos="fade-up">
+          <h2 class="h5 fw-bold mb-2">Contáctanos</h2>
+          <p class="small mb-2">Consultas y cotizaciones:</p>
+          <p class="small mb-0"><strong>correo@inquimed.com</strong></p>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="150">
+          <h3 class="h6 fw-bold mb-2">Redes sociales</h3>
+          <div class="d-flex gap-3 mt-2">
+            <a href="#" class="social-icon" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon" aria-label="TikTok">
+              <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://wa.me/51900000000" target="_blank" class="social-icon" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
           </div>
         </div>
-
-        <div class="col-md-4 text-md-end">
-          <h6 class="fw-bold">INQUIMED</h6>
+        <div class="col-md-4 text-md-end" data-aos="fade-up" data-aos-delay="300">
+          <h3 class="h6 fw-bold mb-2">INQUIMED</h3>
           <p class="small mb-0">© 2025 Soluciones Químicas Integrales</p>
         </div>
       </div>
     </div>
+
+    <a href="#contenido-principal" class="back-to-top" aria-label="Volver arriba">▲</a>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
-    // Obtener ID de la URL
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get("id");
+    AOS.init({
+      once: true,
+      duration: 700,
+      easing: "ease-out-cubic"
+    });
+  </script>
 
-    const container = document.getElementById("productContainer");
-    const breadcrumb = document.getElementById("breadcrumb-product");
+  <script src="js/product.js" defer></script>
 
-    fetch("data/products.json")
-      .then(res => res.json())
-      .then(data => {
-        const product = data.products.find(p => p.id === productId);
+  <!-- Modo oscuro -->
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon   = document.getElementById("themeIcon");
+    const themeLabel  = document.getElementById("themeLabel");
 
-        if (!product) {
-          container.innerHTML = `
-            <div class="col-12 text-center py-5">
-              <h3 class="fw-bold">Producto no encontrado</h3>
-              <p class="text-muted">Es posible que el producto haya sido removido o cambiado.</p>
-              <a href="index.html#catalogo" class="btn btn-quim">Volver al catálogo</a>
-            </div>
-          `;
-          return;
-        }
+    let currentTheme = localStorage.getItem("inquimed-theme");
+    if (!currentTheme) {
+      currentTheme =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+    }
 
-        breadcrumb.textContent = product.name;
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    updateThemeButton();
 
-        container.innerHTML = `
-          <div class="col-md-5">
-            <div class="card product-card p-3">
-              <img src="${product.image || 'assets/product-placeholder.png'}" 
-                   class="product-img mb-3" 
-                   alt="${product.name}">
-              <span class="product-pill">${product.category}</span>
-            </div>
-          </div>
+    themeToggle.addEventListener("click", () => {
+      currentTheme = currentTheme === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", currentTheme);
+      localStorage.setItem("inquimed-theme", currentTheme);
+      updateThemeButton();
+    });
 
-          <div class="col-md-7">
-            <h1 class="h3 fw-bold">${product.name}</h1>
-            ${product.formula ? `<p class="product-formula">${product.formula}</p>` : ""}
+    function updateThemeButton() {
+      if (!themeIcon || !themeLabel) return;
+      if (currentTheme === "dark") {
+        themeIcon.classList.remove("fa-moon");
+        themeIcon.classList.add("fa-sun");
+        themeLabel.textContent = "Modo claro";
+      } else {
+        themeIcon.classList.remove("fa-sun");
+        themeIcon.classList.add("fa-moon");
+        themeLabel.textContent = "Modo oscuro";
+      }
+    }
+  </script>
 
-            <p class="small text-muted mb-3">${product.description}</p>
+  <!-- Mail de cotización -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const quoteBtn = document.getElementById("quoteButton");
+      const nameEl   = document.getElementById("productNameHeading");
+      if (!quoteBtn || !nameEl) return;
 
-            <table class="table table-sm small">
-              <tbody>
-                <tr><th>Categoría</th><td>${product.category}</td></tr>
-                <tr><th>Grado</th><td>${product.grade || "-"}</td></tr>
-                <tr><th>Presentación</th><td>${product.presentation || "-"}</td></tr>
-                <tr><th>Peligro</th><td>${product.hazard || "-"}</td></tr>
-              </tbody>
-            </table>
+      const updateQuoteHref = () => {
+        const name = encodeURIComponent(nameEl.textContent.trim());
+        quoteBtn.href = `mailto:correo@inquimed.com?subject=Cotización%20${name}`;
+      };
 
-            <div class="d-flex gap-2 mt-3">
-              <a href="index.html#catalogo" class="btn btn-outline-secondary btn-sm">
-                <i class="fa-solid fa-arrow-left"></i> Volver al catálogo
-              </a>
-
-              <a href="mailto:correo@inquimed.com?subject=Cotización%20${encodeURIComponent(product.name)}"
-                 class="btn btn-quim btn-sm">
-                Solicitar cotización
-              </a>
-            </div>
-          </div>
-        `;
-      });
+      setTimeout(updateQuoteHref, 400);
+    });
   </script>
 </body>
 </html>

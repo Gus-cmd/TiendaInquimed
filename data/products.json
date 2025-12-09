@@ -5,24 +5,47 @@
       "name": "Ácido clorhídrico 37%",
       "formula": "HCl",
       "category": "Reactivo",
-        "grade": "Analítico",
+      "grade": "Analítico",
       "hazard": "Corrosivo",
       "presentation": "1 L",
       "description": "Solución concentrada para uso en laboratorio.",
-        "tags": ["reactivo", "ácido", "minería"],
-        "image": "assets/logo-inquimed.png"
+      "tags": ["reactivo", "ácido", "minería", "corrosivo"],
+      "ghsCodes": ["GHS05"],
+      "image": "assets/logo-inquimed.png"
     },
     {
       "id": "etanol-absoluto",
       "name": "Etanol absoluto",
       "formula": "C2H6O",
       "category": "Solvente",
-        "grade": "HPLC",
+      "grade": "HPLC",
       "hazard": "Inflamable",
       "presentation": "2.5 L",
       "description": "Solvente orgánico de alta pureza.",
-        "tags": ["solvente", "orgánico"],
-        "image": "assets/logo-inquimed.png"
+      "tags": ["solvente", "orgánico", "inflamable"],
+      "ghsCodes": ["GHS02"],
+      "image": "assets/logo-inquimed.png"
+    },
+    {
+      "id": "nitrato-plata",
+      "name": "Nitrato de Plata",
+      "formula": "AgNO3",
+      "category": "Reactivo",
+      "grade": "≥99.80% (Analítico)",
+      "hazard": "Peligro",
+      "presentation": "60 mL, 100 g, 250 g, 500 g, 1 kg, 2 kg",
+      "description": "Reactivo analítico de alta pureza utilizado en laboratorio para análisis químicos y síntesis. Manipular con precaución debido a su carácter oxidante y tóxico.",
+      "tags": [
+        "reactivo",
+        "analítico",
+        "oxidante",
+        "tóxico",
+        "corrosivo",
+        "laboratorio",
+        "análisis químico"
+      ],
+      "ghsCodes": ["GHS05", "GHS09"],
+      "image": "assets/logo-inquimed.png"
     }
   ]
 }

@@ -1,4 +1,6 @@
+// ======================================================
 // ELEMENTOS DEL DOM
+// ======================================================
 const grid = document.getElementById("productsGrid");
 const searchInput = document.getElementById("searchInput");
 const paginationContainer = document.getElementById("pagination");
@@ -18,25 +20,44 @@ let allProducts = [];
 let filteredProducts = [];
 let currentPage = 1;
 
-// -------------------------------------
-// 1. Cargar productos JSON
-// -------------------------------------
+// ======================================================
+// 1. Cargar productos del ADMIN (localStorage)
+// ======================================================
+function loadExtraProducts() {
+  try {
+    const raw = localStorage.getItem("inquimed-extra-products");
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    console.error("Error leyendo productos extra del admin:", err);
+    return [];
+  }
+}
+
+// ======================================================
+// 2. Cargar productos desde products.json + admin
+// ======================================================
 async function loadProducts() {
   try {
     const res = await fetch("data/products.json");
     const data = await res.json();
-    allProducts = data.products || [];
-    filteredProducts = [...allProducts];
+    const baseProducts = data.products || [];
+    const extraProducts = loadExtraProducts();
 
+    // Combinar catálogo base + productos admin
+    allProducts = baseProducts.concat(extraProducts);
+
+    filteredProducts = [...allProducts];
     renderCurrentPage();
   } catch (err) {
     console.error("Error cargando productos:", err);
   }
 }
 
-// -------------------------------------
-// 2. Aplicar filtros
-// -------------------------------------
+// ======================================================
+// 3. Aplicar filtros
+// ======================================================
 function applyFilters() {
   filteredProducts = productFilter.filter(allProducts, {
     search: searchInput.value,
@@ -50,9 +71,9 @@ function applyFilters() {
   renderCurrentPage();
 }
 
-// -------------------------------------
-// 3. Chips de categoría (filtros rápidos)
-// -------------------------------------
+// ======================================================
+// 4. Chips de categoría (filtros rápidos)
+// ======================================================
 chips.forEach((chip) => {
   chip.addEventListener("click", () => {
     chips.forEach((c) => c.classList.remove("active"));
@@ -65,9 +86,9 @@ chips.forEach((chip) => {
   });
 });
 
-// -------------------------------------
-// 4. Limpiar filtros
-// -------------------------------------
+// ======================================================
+// 5. Limpiar filtros
+// ======================================================
 clearFiltersBtn.addEventListener("click", () => {
   searchInput.value = "";
   filterCategory.value = "";
@@ -81,13 +102,13 @@ clearFiltersBtn.addEventListener("click", () => {
   applyFilters();
 });
 
-// -------------------------------------
-// 5. Renderizar productos
-// -------------------------------------
+// ======================================================
+// 6. Renderizar tarjetas de productos
+// ======================================================
 function renderProducts(list) {
   grid.innerHTML = "";
 
-  // Contador
+  // Contador de resultados
   resultsCount.textContent = `${list.length} producto(s) encontrado(s)`;
 
   if (!list.length) {
@@ -104,7 +125,9 @@ function renderProducts(list) {
     col.innerHTML = `
       <a href="producto.html?id=${encodeURIComponent(p.id)}" class="text-decoration-none text-dark">
         <div class="card product-card h-100">
-          <img src="${p.image || "assets/product-placeholder.png"}" class="product-img" alt="${p.name}">
+          <img src="${p.image || "assets/product-placeholder.png"}"
+               class="product-img"
+               alt="${p.name}">
 
           <div class="card-body">
             <div class="d-flex justify-content-between mb-2">
@@ -114,11 +137,11 @@ function renderProducts(list) {
 
             ${p.formula ? `<p class="product-formula mb-1">${p.formula}</p>` : ""}
 
-            <p class="small text-muted mb-2">${p.description}</p>
+            <p class="small text-muted mb-2">${p.description || ""}</p>
 
             <p class="small mb-0">
-              <strong>Presentación:</strong> ${p.presentation} <br>
-              <strong>Peligro:</strong> <span class="${hazardClass}">${p.hazard}</span>
+              <strong>Presentación:</strong> ${p.presentation || "—"} <br>
+              <strong>Peligro:</strong> <span class="${hazardClass}">${p.hazard || "—"}</span>
             </p>
           </div>
         </div>
@@ -129,9 +152,9 @@ function renderProducts(list) {
   });
 }
 
-// -------------------------------------
-// 6. Renderizar paginación
-// -------------------------------------
+// ======================================================
+// 7. Renderizar paginación
+// ======================================================
 function renderPagination(totalPages) {
   paginationContainer.innerHTML = "";
 
@@ -177,9 +200,9 @@ function renderPagination(totalPages) {
   paginationContainer.appendChild(ul);
 }
 
-// -------------------------------------
-// 7. Render actual
-// -------------------------------------
+// ======================================================
+// 8. Render actual (página actual del catálogo)
+// ======================================================
 function renderCurrentPage() {
   const total = filteredProducts.length;
   const totalPages = Math.ceil(total / PAGE_SIZE);
@@ -191,14 +214,16 @@ function renderCurrentPage() {
   renderPagination(totalPages);
 }
 
-// -------------------------------------
-// 8. Eventos principales
-// -------------------------------------
+// ======================================================
+// 9. Eventos principales
+// ======================================================
 searchInput.addEventListener("input", applyFilters);
 filterCategory.addEventListener("change", applyFilters);
 filterHazard.addEventListener("change", applyFilters);
 filterGrade.addEventListener("change", applyFilters);
 filterSort.addEventListener("change", applyFilters);
 
-// Iniciar
+// ======================================================
+// 10. Inicializar catálogo
+// ======================================================
 loadProducts();
