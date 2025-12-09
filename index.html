@@ -343,11 +343,11 @@
           </div>
         </div>
         <div class="col-md-4 text-md-end">
-            <h3 class="h6 fw-bold mb-2">INQUIMED</h3>
-            <p class="small mb-1">
+          <h3 class="h6 fw-bold mb-2">INQUIMED</h3>
+          <p class="small mb-1">
             <a href="legal.html" class="footer-link">Legal</a>
-            </p>
-            <p class="small mb-0">© 2025 Soluciones Químicas Integrales</p>
+          </p>
+          <p class="small mb-0">© 2025 Soluciones Químicas Integrales</p>
         </div>
       </div>
     </div>
@@ -410,6 +410,35 @@
         themeLabel.textContent = "Modo oscuro";
       }
     }
+  </script>
+
+  <!-- Netlify Identity (para invites / login) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", function (user) {
+        if (!user) {
+          window.netlifyIdentity.on("login", function () {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+
+  <!-- Redirección de tokens de invitación a /admin -->
+  <script>
+    (function () {
+      var hash = window.location.hash || "";
+
+      if (
+        hash.includes("invite_token") ||
+        hash.includes("confirmation_token") ||
+        hash.includes("recovery_token")
+      ) {
+        window.location.href = "/admin/" + hash;
+      }
+    })();
   </script>
 </body>
 </html>
