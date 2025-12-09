@@ -14,6 +14,7 @@
 body {
   margin: 0;
   font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
   background-color: #f3f4f6;
   color: #0f172a;
 }
@@ -34,16 +35,23 @@ body {
   color: #f9fafb;
 }
 
+.hero-title {
+  font-size: clamp(1.9rem, 3.1vw, 2.6rem);
+  line-height: 1.2;
+}
+
 .hero-badge {
   background: rgba(15, 118, 110, 0.15) !important;
   color: #e0f2f1 !important;
   border-radius: 999px;
   padding: 0.35rem 0.9rem;
   letter-spacing: 0.08em;
+  font-size: 0.7rem;
 }
 
 .hero-lead {
   max-width: 42rem;
+  font-size: 0.98rem;
 }
 
 /* Card resumen INQUIMED */
@@ -150,7 +158,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* SKIP LINK ACCESIBLE */
+/* SKIP LINK */
 .skip-link {
   position: absolute;
   top: 0.5rem;
@@ -168,7 +176,7 @@ body {
   transform: translateY(0);
 }
 
-/* VISUALLY HIDDEN (para lectores de pantalla) */
+/* VISUALLY HIDDEN */
 .visually-hidden {
   position: absolute !important;
   height: 1px;
@@ -181,7 +189,7 @@ body {
   margin: -1px;
 }
 
-/* FOCUS STYLES PARA TECLADO */
+/* FOCUS */
 a:focus,
 button:focus,
 input:focus,
@@ -232,14 +240,14 @@ select:focus {
   background: #04796a;
 }
 
-/* CHIPS DE FILTRO */
+/* CHIPS */
 .chip-filter {
   border: none;
   padding: 6px 14px;
   border-radius: 999px;
   background: #e5e7eb;
   color: #111827;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -253,22 +261,146 @@ select:focus {
 
 /* Peligro: colores */
 .hazard-Corrosivo {
-  color: #b91c1c !important;
+  color: #fca5a5 !important;
 }
 .hazard-Inflamable {
-  color: #ea580c !important;
+  color: #fdba74 !important;
 }
 .hazard-Tóxico {
-  color: #86198f !important;
+  color: #f9a8d4 !important;
 }
 .hazard-Irritante {
-  color: #ca8a04 !important;
+  color: #facc15 !important;
 }
 .hazard-No {
-  color: #15803d !important;
+  color: #6ee7b7 !important;
 }
 
-/* Espaciado general */
+/* Altura mínima */
 main {
   min-height: 60vh;
+}
+
+/*  ---------------------------
+      🌙 MODO OSCURO INQUIMED
+    --------------------------- */
+
+html {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+[data-theme="dark"] body {
+  background: #020617;
+  color: #e2e8f0;
+}
+
+/* NAVBAR oscuro */
+[data-theme="dark"] .bg-dark-quim {
+  background: #011b17;
+}
+
+/* HERO oscuro */
+[data-theme="dark"] .bg-hero {
+  background: radial-gradient(circle at top left, #083e36 0, #011b17 60%);
+  color: #e2e8f0;
+}
+
+/* text-muted en oscuro */
+[data-theme="dark"] .text-muted {
+  color: #9ca3af !important;
+}
+
+/* Placeholder en oscuro */
+[data-theme="dark"] ::placeholder {
+  color: #9ca3af;
+}
+
+/* Cards */
+[data-theme="dark"] .card {
+  background: #020617;
+  color: #e2e8f0;
+  border-color: rgba(148, 163, 184, 0.4);
+}
+
+[data-theme="dark"] .card-hero {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+[data-theme="dark"] .product-card {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
+}
+
+/* Formularios */
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+  background: #020617 !important;
+  color: #e2e8f0 !important;
+  border-color: rgba(148, 163, 184, 0.6) !important;
+}
+
+/* Secciones */
+[data-theme="dark"] .section-light {
+  background-color: #020617;
+}
+
+/* Chips */
+[data-theme="dark"] .chip-filter {
+  background: #1f2937;
+  color: #e2e8f0;
+}
+[data-theme="dark"] .chip-filter.active {
+  background: var(--inquimed-green);
+  color: #fff;
+}
+
+/* Footer */
+[data-theme="dark"] footer {
+  background: #011b17;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .social-icon {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .back-to-top {
+  background: var(--inquimed-green);
+}
+
+/*  ---------------------------
+      📱 RESPONSIVE
+    --------------------------- */
+
+@media (max-width: 768px) {
+  .navbar-brand span {
+    font-size: 0.95rem;
+  }
+
+  .hero-lead {
+    font-size: 0.9rem;
+  }
+
+  .card-hero {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 1.7rem;
+  }
+
+  .hero-lead {
+    font-size: 0.88rem;
+  }
+
+  .btn-lg {
+    font-size: 0.9rem;
+    padding: 0.55rem 1.4rem;
+  }
+
+  #productsGrid .card-body {
+    font-size: 0.86rem;
+  }
 }
