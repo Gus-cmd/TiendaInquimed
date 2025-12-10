@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # o la rama que use tu repo
+  branch: main   # rama del repo
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
@@ -20,61 +20,94 @@ collections:
           - label: "Productos"
             name: "products"
             widget: "list"
-            summary: "{{fields.name}} ({{fields.category}})"
+            collapsed: true
+            summary: "{{fields.id}} – {{fields.name}} ({{fields.category}})"
             fields:
-              - { label: "ID", name: "id", widget: "string" }
-              - { label: "Nombre", name: "name", widget: "string" }
-              - {
-                  label: "Fórmula",
-                  name: "formula",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Categoría",
-                  name: "category",
-                  widget: "select",
-                  options:
-                    ["Reactivo", "Solvente", "Material", "Equipo", "Limpieza"],
-                }
-              - {
-                  label: "Grado",
-                  name: "grade",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Peligro",
-                  name: "hazard",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Presentación",
-                  name: "presentation",
-                  widget: "string",
-                  required: false,
-                }
-              - {
-                  label: "Descripción",
-                  name: "description",
-                  widget: "text",
-                  required: false,
-                }
+              # ID con validación
+              - label: "ID"
+                name: "id"
+                widget: "string"
+                hint: "Identificador único (ej: hcl-37, etanol-absoluto). Solo minúsculas, números y guiones."
+                pattern:
+                  - "^[a-z0-9-]+$"
+                  - "Usa solo minúsculas, números y guiones (sin espacios)."
 
-              # 👇 Aquí cambiamos: lista simple de strings
+              - label: "Nombre"
+                name: "name"
+                widget: "string"
+
+              - label: "Fórmula"
+                name: "formula"
+                widget: "string"
+                required: false
+                hint: "Ejemplos: HCl, C2H6O, NaCl…"
+
+              - label: "Categoría"
+                name: "category"
+                widget: "select"
+                options:
+                  - "Reactivo"
+                  - "Solvente"
+                  - "Material"
+                  - "Equipo"
+                  - "Limpieza"
+
+              - label: "Grado"
+                name: "grade"
+                widget: "string"
+                required: false
+                hint: "Ejemplos: Analítico, HPLC, Técnico…"
+
+              - label: "Peligro"
+                name: "hazard"
+                widget: "select"
+                required: false
+                options:
+                  - "Corrosivo"
+                  - "Inflamable"
+                  - "Tóxico"
+                  - "Irritante"
+                  - "No peligroso"
+                hint: "Clasificación principal del peligro (visible en el catálogo)."
+
+              - label: "Presentación"
+                name: "presentation"
+                widget: "string"
+                required: false
+                hint: "Ejemplos: 1 L, 2.5 L, 500 mL…"
+
+              - label: "Descripción"
+                name: "description"
+                widget: "text"
+                required: false
+                hint: "Breve descripción del uso o características del producto."
+
+              # Lista de etiquetas como array de strings
               - label: "Etiquetas (tags)"
                 name: "tags"
                 widget: "list"
                 required: false
                 default: []
+                hint: "Palabras clave para búsquedas (ej: reactivo, ácido, minería…)."
+                field:
+                  label: "Etiqueta"
+                  name: "tag"
+                  widget: "string"
 
-              # 👇 También lista simple de strings
+              # Lista de códigos GHS como array de strings
               - label: "Pictogramas GHS"
                 name: "ghsCodes"
                 widget: "list"
                 required: false
                 default: []
+                hint: "Códigos GHS (ej: GHS02 inflamable, GHS05 corrosivo, GHS07 irritante…)."
+                field:
+                  label: "Código GHS"
+                  name: "code"
+                  widget: "string"
+                  pattern:
+                    - "^GHS[0-9]{2}$"
+                    - "Usa formato GHS01–GHS09 (por ejemplo GHS05)."
 
               - label: "Imagen"
                 name: "image"
@@ -82,3 +115,4 @@ collections:
                 allow_multiple: false
                 required: false
                 default: "assets/logo-inquimed.png"
+                hint: "Imagen representativa del producto. Si se omite, se usará el logo."
