@@ -29,6 +29,30 @@ body {
   background: #022b26;
 }
 
+/* Logo INQUIMED en navbar */
+.navbar-brand-logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgb(255, 255, 255); /* halo para que el logo sin fondo destaque */
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+}
+
+.navbar-brand-logo {
+  height: 44px;            /* más grande que antes */
+  width: auto;
+  display: block;
+}
+
+.navbar-brand-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 /* HERO */
 .bg-hero {
   background: radial-gradient(circle at top left, #0f766e 0, #022b26 35%, #020617 100%);
@@ -373,7 +397,7 @@ html {
     --------------------------- */
 
 @media (max-width: 768px) {
-  .navbar-brand span {
+  .navbar-brand-text {
     font-size: 0.95rem;
   }
 
@@ -495,7 +519,6 @@ html {
 /* -------- MODO OSCURO – Ficha de producto -------- */
 
 [data-theme="dark"] .product-page {
-  /* fondo más profundo, pero uniforme */
   background: #020617;
 }
 
@@ -535,7 +558,7 @@ html {
   color: #9ca3af !important;
 }
 
-/* Badges en oscuro (categoría / grado / peligro) */
+/* Badges en oscuro */
 [data-theme="dark"] .product-badge-category {
   background: rgba(236, 72, 153, 0.2);
   color: #f9a8d4;
@@ -562,7 +585,7 @@ html {
   color: #facc15;
 }
 
-/* ---------- ÍCONOS GHS (ficha de producto) ---------- */
+/* ---------- ÍCONOS GHS ---------- */
 
 .ghs-icon {
   display: flex;
@@ -606,7 +629,7 @@ html {
   color: #f9fafb;
 }
 
-/* Ficha rápida lado izquierdo */
+/* Ficha rápida izquierda */
 .product-left-title {
   font-size: 1rem;
   font-weight: 600;
@@ -653,7 +676,7 @@ html {
   background-color: #f9fafb;
 }
 
-/* Dark mode */
+/* Dark mode relacionados */
 [data-theme="dark"] .product-card-left .small.text-muted {
   color: #9ca3af !important;
 }
@@ -677,14 +700,130 @@ html {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
 }
 
+/* Link Legal en footer */
 .footer-link {
   color: #ffffff;
-  text-decoration: none;   /* QUITA LA LÍNEA */
+  text-decoration: none;
   opacity: 0.85;
   transition: opacity 0.2s ease;
 }
 
 .footer-link:hover {
   opacity: 1;
-  text-decoration: none;   /* evita que algunos navegadores lo activen */
+  text-decoration: none;
+}
+
+/* --------- SERVICIOS ESPECIALIZADOS (nuevo estilo) --------- */
+
+.section-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: #6b7280;
+  display: inline-block;
+  margin-bottom: 0.3rem;
+}
+
+.servicio-intro {
+  max-width: 50rem;
+}
+
+.service-line-header {
+  margin-bottom: 0.25rem;
+}
+
+.service-line-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(6, 95, 82, 0.08);
+  color: #065f52;
+}
+
+.service-line-chip-ambiental {
+  background: rgba(22, 163, 74, 0.08);
+  color: #15803d;
+}
+
+.service-line-chip-limpieza {
+  background: rgba(59, 130, 246, 0.08);
+  color: #1d4ed8;
+}
+
+.service-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  background: rgba(6, 95, 82, 0.08);
+  color: #065f52;
+}
+
+.service-icon-wrap-soft {
+  background: rgba(59, 130, 246, 0.08);
+  color: #1d4ed8;
+}
+
+.service-icon {
+  font-size: 1.1rem;
+}
+
+/* hover para service-card */
+.service-card {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.18);
+  border-color: rgba(6, 95, 82, 0.4);
+  background-color: #ffffff;
+}
+
+/* Dark mode servicios */
+[data-theme="dark"] .service-line-chip {
+  background: rgba(15, 23, 42, 0.9);
+  color: #a5f3fc;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+[data-theme="dark"] .service-line-chip-ambiental {
+  background: rgba(6, 78, 59, 0.9);
+  color: #bbf7d0;
+}
+
+[data-theme="dark"] .service-line-chip-limpieza {
+  background: rgba(30, 64, 175, 0.9);
+  color: #bfdbfe;
+}
+
+[data-theme="dark"] .service-card {
+  background: #020617;
+  border-color: #1f2937;
+}
+
+[data-theme="dark"] .service-card:hover {
+  background: #020617;
+  border-color: #22c55e;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+}
+
+[data-theme="dark"] .service-icon-wrap {
+  background: rgba(15, 23, 42, 0.9);
+  color: #a5f3fc;
+}
+
+[data-theme="dark"] .service-icon-wrap-soft {
+  background: rgba(30, 64, 175, 0.9);
+  color: #bfdbfe;
 }

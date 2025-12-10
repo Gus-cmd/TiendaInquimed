@@ -70,8 +70,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark-quim sticky-top" aria-label="Navegación principal">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#inicio">
-          <img src="assets/logo-inquimed.png" alt="Logo de INQUIMED" height="40" class="me-2" loading="lazy">
-          <span class="fw-bold">INQUIMED</span>
+          <span class="navbar-brand-logo-wrap me-2">
+            <!-- Usa aquí tu logo PNG sin fondo -->
+            <img src="assets/logo-inquimed.png" alt="Logo de INQUIMED" class="navbar-brand-logo" loading="lazy">
+          </span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Mostrar menú">
           <span class="navbar-toggler-icon"></span>
@@ -246,54 +248,129 @@
       </div>
     </section>
 
-    <!-- SERVICIOS -->
+    <!-- SERVICIOS (MEJORADO) -->
     <section id="servicios" class="section-light border-top">
       <div class="container py-5">
-        <h2 class="h3 fw-bold mb-4" data-aos="fade-up">Servicios analíticos y asesoría técnica</h2>
-        <div class="row g-4">
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-            <article class="card h-100 shadow-sm service-card">
-              <div class="card-body">
-                <h3 class="h5 card-title">Análisis de minerales</h3>
-                <p class="card-text small">
-                  Determinación de leyes, control de procesos y caracterización
-                  de minerales y materiales industriales.
+
+        <header class="mb-4 text-center text-md-start">
+          <span class="section-kicker">Qué hace INQUIMED</span>
+          <h2 class="h3 fw-bold mb-2">Servicios especializados</h2>
+          <p class="small text-muted mb-0 servicio-intro">
+            INQUIMED combina ingeniería química, ingeniería ambiental y la fabricación de productos de limpieza,
+            ofreciendo soluciones completas para la industria y los laboratorios.
+          </p>
+        </header>
+
+        <!-- Línea de Ingeniería Química -->
+        <section class="service-line mb-4" data-aos="fade-up" data-aos-delay="50">
+          <div class="service-line-header">
+            <span class="service-line-chip">
+              <i class="fa-solid fa-flask-vial me-1"></i>
+              Línea de ingeniería química
+            </span>
+          </div>
+          <div class="row g-4 mt-1">
+            <div class="col-md-6 col-lg-4">
+              <article class="card h-100 shadow-sm service-card">
+                <div class="card-body">
+                  <div class="service-icon-wrap">
+                    <i class="fa-solid fa-microscope service-icon"></i>
+                  </div>
+                  <h3 class="h5 card-title">Análisis de minerales y materiales</h3>
+                  <p class="card-text small">
+                    Ensayos químicos para determinación de leyes, control de procesos y
+                    caracterización de minerales y materiales industriales.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <article class="card h-100 shadow-sm service-card">
+                <div class="card-body">
+                  <div class="service-icon-wrap">
+                    <i class="fa-solid fa-vial-circle-check service-icon"></i>
+                  </div>
+                  <h3 class="h5 card-title">Control de calidad y gestión de laboratorio</h3>
+                  <p class="card-text small">
+                    Diseño de planes de control de calidad, implementación de procedimientos,
+                    gestión de reactivos, equipos y buenas prácticas de laboratorio.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Línea de Ingeniería Ambiental y Seguridad Industrial -->
+        <section class="service-line mb-4" data-aos="fade-up" data-aos-delay="120">
+          <div class="service-line-header">
+            <span class="service-line-chip service-line-chip-ambiental">
+              <i class="fa-solid fa-leaf me-1"></i>
+              Línea de ingeniería ambiental y seguridad industrial
+            </span>
+          </div>
+          <div class="row g-4 mt-1">
+            <div class="col-md-6 col-lg-4">
+              <article class="card h-100 shadow-sm service-card">
+                <div class="card-body">
+                  <div class="service-icon-wrap">
+                    <i class="fa-solid fa-droplet service-icon"></i>
+                  </div>
+                  <h3 class="h5 card-title">Monitoreo ambiental</h3>
+                  <p class="card-text small">
+                    Análisis fisicoquímicos de aguas, suelos y efluentes para evaluar
+                    el cumplimiento normativo y el desempeño ambiental de las operaciones.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+              <article class="card h-100 shadow-sm service-card">
+                <div class="card-body">
+                  <div class="service-icon-wrap">
+                    <i class="fa-solid fa-helmet-safety service-icon"></i>
+                  </div>
+                  <h3 class="h5 card-title">Asesoría ambiental y seguridad industrial</h3>
+                  <p class="card-text small">
+                    Servicios de asesoría técnica en materia ambiental, procesos industriales
+                    y seguridad industrial, con enfoque en prevención de riesgos y cumplimiento legal.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Línea de productos de limpieza -->
+        <section class="service-line" data-aos="fade-up" data-aos-delay="180">
+          <div class="service-line-header">
+            <span class="service-line-chip service-line-chip-limpieza">
+              <i class="fa-solid fa-spray-can-sparkles me-1"></i>
+              Línea de productos de limpieza
+            </span>
+          </div>
+          <article class="card shadow-sm service-card mt-2">
+            <div class="card-body d-md-flex align-items-start gap-3">
+              <div class="service-icon-wrap service-icon-wrap-soft mb-3 mb-md-0">
+                <i class="fa-solid fa-pump-soap service-icon"></i>
+              </div>
+              <div>
+                <h3 class="h5 card-title mb-2">Fabricación y distribución de productos de limpieza</h3>
+                <p class="card-text small mb-1">
+                  Formulación, fabricación y comercialización de productos de limpieza, desinfección
+                  y mantenimiento para uso doméstico e industrial.
+                </p>
+                <p class="card-text small text-muted mb-0">
+                  Incluye soluciones para higiene de superficies, áreas de proceso, oficinas, plantas
+                  industriales y otros espacios que requieren protocolos específicos de limpieza.
                 </p>
               </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-            <article class="card h-100 shadow-sm service-card">
-              <div class="card-body">
-                <h3 class="h5 card-title">Aguas, suelos y efluentes</h3>
-                <p class="card-text small">
-                  Análisis fisicoquímicos para monitoreo ambiental y cumplimiento normativo.
-                </p>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-            <article class="card h-100 shadow-sm service-card">
-              <div class="card-body">
-                <h3 class="h5 card-title">Asesoría en procesos</h3>
-                <p class="card-text small">
-                  Optimización de procesos industriales y sistemas de tratamiento.
-                </p>
-              </div>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-            <article class="card h-100 shadow-sm service-card">
-              <div class="card-body">
-                <h3 class="h5 card-title">Seguridad y gestión de laboratorios</h3>
-                <p class="card-text small">
-                  Implementación de buenas prácticas, control de calidad y
-                  seguridad y salud ocupacional.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
+            </div>
+          </article>
+        </section>
+
       </div>
     </section>
 
@@ -301,18 +378,34 @@
     <section id="sobre" class="section-light border-top">
       <div class="container py-5">
         <h2 class="h3 fw-bold mb-3" data-aos="fade-up">Sobre INQUIMED</h2>
-        <p class="small text-muted mb-3" data-aos="fade-up" data-aos-delay="100">
-          INQUIMED se dedica a la venta, importación, exportación, fabricación, formulación,
-          envasado y comercialización de reactivos químicos, materiales y equipos de laboratorio,
-          así como productos afines para distintos sectores industriales.
+
+        <p class="small text-muted mb-3" data-aos="fade-up" data-aos-delay="80">
+          INQUIMED es una empresa formada por la integración de dos especialidades:
+          <strong>ingeniería química</strong> e <strong>ingeniería ambiental</strong>. Esta combinación permite
+          ofrecer soluciones químicas integrales tanto para industria como para laboratorios, con un enfoque
+          técnico y ambientalmente responsable.
         </p>
-        <p class="small text-muted mb-0" data-aos="fade-up" data-aos-delay="200">
-          La empresa también ofrece servicios de análisis químicos de minerales, suelos, aguas,
-          efluentes y materiales industriales, además de brindar asesoría técnica en materia ambiental,
-          procesos industriales, seguridad y salud ocupacional, control de calidad y gestión de laboratorios.
+
+        <p class="small text-muted mb-3" data-aos="fade-up" data-aos-delay="140">
+          Desde la línea de ingeniería química, INQUIMED se dedica a la venta, importación, formulación y
+          envasado de reactivos químicos, materiales y equipos de laboratorio, además de brindar servicios
+          de análisis químicos, control de calidad y gestión de laboratorios.
+        </p>
+
+        <p class="small text-muted mb-3" data-aos="fade-up" data-aos-delay="180">
+          Desde la línea de ingeniería ambiental, la empresa ofrece asesoría técnica en materia ambiental,
+          procesos industriales y seguridad industrial, apoyando a sus clientes en el cumplimiento normativo,
+          la prevención de riesgos y la mejora de su desempeño ambiental.
+        </p>
+
+        <p class="small text-muted mb-0" data-aos="fade-up" data-aos-delay="220">
+          De forma complementaria, INQUIMED desarrolla una línea propia de
+          <strong>productos de limpieza, desinfección y mantenimiento</strong>, orientados tanto al uso doméstico
+          como al uso industrial, integrando calidad, seguridad y cuidado del entorno en cada formulación.
         </p>
       </div>
     </section>
+
   </main>
 
   <!-- FOOTER -->
